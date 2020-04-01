@@ -27,7 +27,7 @@ var validLambdaRuntimes = []string{
 	lambda.RuntimeDotnetcore10,
 	lambda.RuntimeDotnetcore20,
 	lambda.RuntimeDotnetcore21,
-	`dotnetcore3.1`,
+	"dotnetcore3.1",
 	lambda.RuntimeGo1X,
 	lambda.RuntimeJava8,
 	lambda.RuntimeJava11,
