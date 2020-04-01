@@ -11,7 +11,6 @@ import (
 	"strings"
 	"testing"
 	"time"
-
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/lambda"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/acctest"
@@ -1625,38 +1624,6 @@ func TestAccAWSLambdaFunction_runtimeValidation_python38(t *testing.T) {
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckAwsLambdaFunctionExists(resourceName, funcName, &conf),
 					resource.TestCheckResourceAttr(resourceName, "runtime", lambda.RuntimePython38),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"filename", "publish"},
-			},
-		},
-	})
-}
-
-func TestAccAWSLambdaFunction_runtimeValidation_dotnetcore31(t *testing.T) {
-	var conf lambda.GetFunctionOutput
-
-	rString := acctest.RandString(8)
-	resourceName := "aws_lambda_function.test"
-	funcName := fmt.Sprintf("tf_acc_lambda_func_runtime_valid_d31_%s", rString)
-	policyName := fmt.Sprintf("tf_acc_policy_lambda_func_runtime_valid_d31_%s", rString)
-	roleName := fmt.Sprintf("tf_acc_role_lambda_func_runtime_valid_d31_%s", rString)
-	sgName := fmt.Sprintf("tf_acc_sg_lambda_func_runtime_valid_d31_%s", rString)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:     func() { testAccPreCheck(t) },
-		Providers:    testAccProviders,
-		CheckDestroy: testAccCheckLambdaFunctionDestroy,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAWSLambdaConfigDotnetCoreRuntime(funcName, policyName, roleName, sgName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAwsLambdaFunctionExists(resourceName, funcName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "runtime", lambda.RuntimeDotnetcore31),
 				),
 			},
 			{
